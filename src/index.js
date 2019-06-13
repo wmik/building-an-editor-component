@@ -31,7 +31,7 @@ function PostInput({ handleChange }) {
   return <Form.TextArea placeholder="Type your post" onChange={handleChange} />;
 }
 
-function App() {
+function PostForm() {
   const [hasText, setHasText] = React.useState(false);
   const handleChange = React.useCallback(
     e => {
@@ -44,19 +44,25 @@ function App() {
     [hasText, setHasText]
   );
   return (
+    <Form>
+      <PostInput handleChange={handleChange} />
+      <PostActionIcon name="image outline" />
+      <PostActionIcon name="attach" />
+      <PostActionIcon name="smile" />
+      <PostSubmitButton disabled={!hasText} />
+    </Form>
+  );
+}
+
+function App() {
+  return (
     <Grid stackable>
       <Grid.Row centered>
         <Grid.Column width={8}>
           <Segment>
             <Header content="New Post" />
             <Divider />
-            <Form>
-              <PostInput handleChange={handleChange} />
-              <PostActionIcon name="image outline" />
-              <PostActionIcon name="attach" />
-              <PostActionIcon name="smile" />
-              <PostSubmitButton disabled={!hasText} />
-            </Form>
+            <PostForm />
           </Segment>
         </Grid.Column>
       </Grid.Row>
