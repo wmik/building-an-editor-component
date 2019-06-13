@@ -10,6 +10,27 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
+function PostSubmitButton({ disabled }) {
+  return React.createElement(
+    Button,
+    {
+      type: "submit",
+      floated: "right",
+      disabled,
+      [!disabled && "color"]: "green"
+    },
+    "Post"
+  );
+}
+
+function PostActionIcon({ name }) {
+  return <Button basic circular icon={name} />;
+}
+
+function PostInput({ handleChange }) {
+  return <Form.TextArea placeholder="Type your post" onChange={handleChange} />;
+}
+
 function App() {
   const [hasText, setHasText] = React.useState(false);
   const handleChange = React.useCallback(
@@ -30,21 +51,11 @@ function App() {
             <Header content="New Post" />
             <Divider />
             <Form>
-              <Form.TextArea
-                placeholder="Type your post"
-                onChange={handleChange}
-              />
-              <Button basic circular icon="image outline" />
-              <Button basic circular icon="attach" />
-              <Button basic circular icon="smile" />
-              <Button
-                type="submit"
-                floated="right"
-                disabled={!hasText}
-                color={hasText ? "green" : ""}
-              >
-                Post
-              </Button>
+              <PostInput handleChange={handleChange} />
+              <PostActionIcon name="image outline" />
+              <PostActionIcon name="attach" />
+              <PostActionIcon name="smile" />
+              <PostSubmitButton disabled={!hasText} />
             </Form>
           </Segment>
         </Grid.Column>
